@@ -32,7 +32,7 @@ public class ProductosBDD {
 				
 				while (rs.next()) {
 					UnidadMedida unidadMedida = new UnidadMedida(rs.getString("nombre_udm"),rs.getString("descripcion_udm"));
-					Categoria categoria = new Categoria(rs.getString("codigo_cat"),rs.getString("nombre_categoria"));
+					Categoria categoria = new Categoria(rs.getInt("codigo_cat"),rs.getString("nombre_categoria"));
 					 Producto producto = new Producto();
 		                producto.setCodigo(rs.getInt("codigo_pro"));
 		                producto.setNombre(rs.getString("nombre_producto"));
@@ -64,5 +64,42 @@ public class ProductosBDD {
 
 	        return productos;
 	    }
+	 
+	 public void insertarProducto(Producto producto) throws KrakeException {
+		    Connection con = null;
+		    PreparedStatement ps = null;
+		    
+		    try {
+		        con = ConexionBDD.obtenerConexion();
+		        String sql = "INSERT INTO public.productos(nombre, codigo_udm, precio_venta, coste, tiene_iva, codigo_cat, stock) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		        ps = con.prepareStatement(sql);
+		        ps.setString(1, producto.getNombre());
+		        ps.setString(2, producto.getUnidadMedida().getCodigo()); // Aquí asumo que tienes un método para obtener el código de la unidad de medida del producto
+		        ps.setBigDecimal(3, producto.getMonto());
+		        ps.setBigDecimal(4, producto.getCosto());
+		        ps.setBoolean(5, producto.isTieneIva());
+		        ps.setInt(6, producto.getCategoria().getCodigo());
+		        ps.setInt(7, producto.getStock());
+		        
+		        // Ejecutar la consulta
+		        ps.executeUpdate();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        throw new KrakeException("Error al insertar el producto. Detalle: " + e.getMessage());
+		    } finally {
+		        // Cerrar la conexión y liberar recursos
+		        try {
+		            if (ps != null) {
+		                ps.close();
+		            }
+		            if (con != null) {
+		                con.close();
+		            }
+		        } catch (SQLException ex) {
+		            ex.printStackTrace();
+		        }
+		    }
+		}
+
 
 }
