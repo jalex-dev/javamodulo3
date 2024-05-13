@@ -7,7 +7,7 @@ public class Producto {
 	private int codigo;
 	private String nombre;
 	private UnidadMedida unidadMedida;
-	private BigDecimal monto;
+	private BigDecimal precioVenta;
 	private BigDecimal costo;
 	private boolean tieneIva;
 	private Categoria categoria;
@@ -30,11 +30,11 @@ public class Producto {
 	public void setUnidadMedida(UnidadMedida unidadMedida) {
 		this.unidadMedida = unidadMedida;
 	}
-	public BigDecimal getMonto() {
-		return monto;
+	public BigDecimal getPrecioVenta() {
+		return precioVenta;
 	}
-	public void setMonto(BigDecimal monto) {
-		this.monto = monto;
+	public void setPrecioVenta(BigDecimal precioVenta) {
+		this.precioVenta = precioVenta;
 	}
 	public BigDecimal getCosto() {
 		return costo;
@@ -60,13 +60,13 @@ public class Producto {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	public Producto(int codigo, String nombre, UnidadMedida unidadMedida, BigDecimal monto, BigDecimal costo,
+	public Producto(int codigo, String nombre, UnidadMedida unidadMedida, BigDecimal precioVenta, BigDecimal costo,
 			boolean tieneIva, Categoria categoria, int stock) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.unidadMedida = unidadMedida;
-		this.monto = monto;
+		this.precioVenta = precioVenta;
 		this.costo = costo;
 		this.tieneIva = tieneIva;
 		this.categoria = categoria;
@@ -77,8 +77,8 @@ public class Producto {
 	}
 	@Override
 	public String toString() {
-		return "Producto [codigo=" + codigo + ", nombre=" + nombre + ", unidadMedida=" + unidadMedida + ", monto="
-				+ monto + ", costo=" + costo + ", tieneIva=" + tieneIva + ", categoria=" + categoria + ", stock="
+		return "Producto [codigo=" + codigo + ", nombre=" + nombre + ", unidadMedida=" + unidadMedida + ", precioVenta="
+				+ precioVenta + ", costo=" + costo + ", tieneIva=" + tieneIva + ", categoria=" + categoria + ", stock="
 				+ stock + "]";
 	}
 	

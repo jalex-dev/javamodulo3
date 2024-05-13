@@ -37,7 +37,7 @@ public class ProductosBDD {
 		                producto.setCodigo(rs.getInt("codigo_pro"));
 		                producto.setNombre(rs.getString("nombre_producto"));
 		                producto.setUnidadMedida(unidadMedida);
-		                producto.setMonto(rs.getBigDecimal("precio_venta"));
+		                producto.setPrecioVenta(rs.getBigDecimal("precio_venta"));
 		                producto.setCosto(rs.getBigDecimal("coste"));
 		                producto.setTieneIva(rs.getBoolean("tiene_iva"));
 		                producto.setCategoria(categoria);
@@ -75,7 +75,7 @@ public class ProductosBDD {
 		        ps = con.prepareStatement(sql);
 		        ps.setString(1, producto.getNombre());
 		        ps.setString(2, producto.getUnidadMedida().getCodigo()); // Aquí asumo que tienes un método para obtener el código de la unidad de medida del producto
-		        ps.setBigDecimal(3, producto.getMonto());
+		        ps.setBigDecimal(3, producto.getPrecioVenta());
 		        ps.setBigDecimal(4, producto.getCosto());
 		        ps.setBoolean(5, producto.isTieneIva());
 		        ps.setInt(6, producto.getCategoria().getCodigo());
