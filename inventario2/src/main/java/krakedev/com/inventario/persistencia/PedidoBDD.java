@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -90,6 +91,13 @@ public class PedidoBDD {
     PreparedStatement psDetalle = null;
     PreparedStatement psCabecera = null;
     
+    PreparedStatement pshist= null;
+	
+	Date fechaActual= new Date();
+	Timestamp fechaHoraActual= new Timestamp(fechaActual.getTime());
+
+
+    
     try {
         con = ConexionBDD.obtenerConexion();
         con.setAutoCommit(false); // Establecer el modo de autocommit en falso
@@ -124,6 +132,16 @@ public class PedidoBDD {
             
             // Ejecutar la actualización para cada detalle de pedido
             psDetalle.executeUpdate();
+            
+            
+            pshist= con.prepareStatement("insert into historial_stock(fecha, referencia, codigo_pro, cantidad) "
+					+ "values(?,?,?,?);");
+            pshist.setTimestamp(1, fechaHoraActual);
+            pshist.setString(2, "pedido" + pedido.getCodigo() );
+            pshist.setInt(3, detalle.getProducto().getCodigo());
+            pshist.setInt(4, detalle.getCantidadRecibida());
+		
+            pshist.executeUpdate();
         }
         
         
