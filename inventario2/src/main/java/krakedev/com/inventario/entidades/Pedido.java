@@ -5,6 +5,13 @@ import java.util.Date;
 
 public class Pedido {
 
+	public Pedido(int codigo, Proveedor proveedor, Date fecha, EstadoPedido estado) {
+		super();
+		this.codigo = codigo;
+		this.proveedor = proveedor;
+		this.fecha = fecha;
+		this.estado = estado;
+	}
 	private int codigo;
 	private Proveedor proveedor;
 	private Date fecha;

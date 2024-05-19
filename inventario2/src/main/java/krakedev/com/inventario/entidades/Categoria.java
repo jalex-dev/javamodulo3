@@ -41,6 +41,11 @@ public class Categoria {
 	public Categoria() {
 		super();
 	}
+	public Categoria(String nombre, Categoria categoriaPadre) {
+		super();
+		this.nombre = nombre;
+		this.categoriaPadre = categoriaPadre;
+	}
 	
 	
 }
