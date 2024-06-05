@@ -53,4 +53,36 @@ public class TipoDocumentoBDD {
 		}
 		return tiposDomentos;
 	}
+    public void insertaTipoDocumento(TipoDocumento tipoDocumento) throws KrakeException {
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = ConexionBDD.obtenerConexion();
+            ps = con.prepareStatement("INSERT INTO public.tipo_documento (codigo_td, descripcion) VALUES (?, ?)");
+            ps.setString(1, tipoDocumento.getCodigoTD());
+            ps.setString(2, tipoDocumento.getDescripcion());
+
+            int rowsInserted = ps.executeUpdate();
+            if (rowsInserted == 0) {
+                throw new KrakeException("No se pudo insertar el tipo de documento.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new KrakeException("Error al insertar. Detalle: " + e.getMessage());
+        } finally {
+            // Cerrar la conexión y liberar recursos
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+    
 }
